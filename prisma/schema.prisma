@@ -1,0 +1,57 @@
+// prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User 모델 정의
+model User {
+  id      String  @id @default(uuid())
+  email   String? @unique
+  name    String?
+  picture String?
+
+  // OAuth 관련 필드
+  providerId String // OAuth 제공자의 유저 ID
+  provider   String // OAuth 제공자 (kakao, naver, apple)
+
+  // 메타데이터
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tokens OAuthToken[]
+
+  // 복합 유니크 제약
+  @@unique([providerId, provider])
+  @@index([email])
+}
+
+// OAuth 토큰 모델 정의
+model OAuthToken {
+  id String @id @default(uuid())
+
+  // 토큰 정보
+  accessToken  String   @db.Text
+  refreshToken String?  @db.Text
+  expiresAt    DateTime
+  tokenType    String   @default("Bearer")
+
+  // 관계 필드
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // OAuth 제공자 정보
+  provider String
+
+  // 메타데이터
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // 인덱스
+  @@index([userId, provider])
+  @@index([expiresAt])
+}
