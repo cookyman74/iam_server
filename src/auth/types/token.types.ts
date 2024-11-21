@@ -29,3 +29,12 @@ export interface TokenStore {
   expiresIn: number; // 만료 시간 (초 단위)
   issuedAt: number; // 발급 시간 (Unix timestamp)
 }
+
+export interface JwtPayload {
+  sub: string;
+  email?: string;
+  provider: string;
+  type: 'access' | 'refresh';
+  iat?: number; // 발급 시간
+  exp?: number; // 만료 시간
+}
