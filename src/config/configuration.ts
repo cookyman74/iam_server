@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 export const appConfig = registerAs('app', () => ({
   nodeEnv: process.env.NODE_ENV || 'development',
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: Number(process.env.PORT) || 3000,
   apiPrefix: process.env.API_PREFIX || 'api',
   cors: {
     enabled: process.env.CORS_ENABLED === 'true',
@@ -12,7 +12,7 @@ export const appConfig = registerAs('app', () => ({
 
 export const databaseConfig = registerAs('database', () => ({
   url: process.env.DATABASE_URL,
-  maxConnections: parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10) || 100,
+  maxConnections: Number(process.env.DATABASE_MAX_CONNECTIONS) || 100,
   sslEnabled: process.env.DATABASE_SSL_ENABLED === 'true',
 }));
 
@@ -39,6 +39,11 @@ export const authConfig = registerAs('auth', () => ({
       keyId: process.env.APPLE_KEY_ID,
       privateKey: process.env.APPLE_PRIVATE_KEY,
       redirectUri: process.env.APPLE_REDIRECT_URI,
+    },
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      redirectUri: process.env.GOOGLE_REDIRECT_URI,
     },
   },
 }));

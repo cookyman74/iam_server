@@ -19,13 +19,13 @@ export class GoogleStrategy extends BaseOAuthStrategy {
 
     // 환경 변수에서 Google 설정값을 가져옵니다.
     this.clientId = this.configService.getOrThrow<string>(
-      'auth.google.clientId',
+      'auth.oauth.google.clientId',
     );
     this.clientSecret = this.configService.getOrThrow<string>(
-      'auth.google.clientSecret',
+      'auth.oauth.google.clientSecret',
     );
     this.redirectUri = this.configService.getOrThrow<string>(
-      'auth.google.redirectUri',
+      'auth.oauth.google.redirectUri',
     );
   }
 

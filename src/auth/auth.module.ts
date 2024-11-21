@@ -10,6 +10,7 @@ import { NaverStrategy } from './strategies/naver.strategy';
 import { AppleStrategy } from './strategies/apple.strategy';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { AuthGuard } from './guards/auth.guard';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AuthGuard } from './guards/auth.guard';
     ConfigModule,
     UsersModule,
     PrismaModule,
+    HttpModule,
   ],
   controllers: [AuthController],
   providers: [

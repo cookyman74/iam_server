@@ -22,11 +22,21 @@ export class AppleStrategy extends BaseOAuthStrategy {
     super(configService, httpService);
 
     // 환경 변수에서 Apple 설정값을 가져옵니다.
-    this.clientId = this.configService.getOrThrow('auth.apple.clientId');
-    this.teamId = this.configService.getOrThrow('auth.apple.teamId');
-    this.keyId = this.configService.getOrThrow('auth.apple.keyId');
-    this.privateKey = this.configService.getOrThrow('auth.apple.privateKey');
-    this.redirectUri = this.configService.getOrThrow('auth.apple.redirectUri');
+    this.clientId = this.configService.getOrThrow<string>(
+      'auth.oauth.apple.clientId',
+    );
+    this.teamId = this.configService.getOrThrow<string>(
+      'auth.oauth.apple.teamId',
+    );
+    this.keyId = this.configService.getOrThrow<string>(
+      'auth.oauth.apple.keyId',
+    );
+    this.privateKey = this.configService.getOrThrow<string>(
+      'auth.oauth.apple.privateKey',
+    );
+    this.redirectUri = this.configService.getOrThrow<string>(
+      'auth.oauth.apple.redirectUri',
+    );
   }
 
   /**
